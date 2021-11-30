@@ -6,12 +6,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ru.gb.storage.commons.message.Message;
 import ru.gb.storage.commons.message.request.auth.AuthMessage;
+import ru.gb.storage.commons.message.request.auth.AuthOkMessage;
 import ru.gb.storage.commons.message.request.auth.RegistrationMessage;
 
 
-public class AuthHandler extends SimpleChannelInboundHandler<Message> {
+public class ServerAuthHandler extends SimpleChannelInboundHandler<Message> {
 
-    private static final Logger logger = LogManager.getLogger(AuthHandler.class);
+    private static final Logger logger = LogManager.getLogger(ServerAuthHandler.class);
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Message message) throws Exception {
@@ -39,7 +40,8 @@ public class AuthHandler extends SimpleChannelInboundHandler<Message> {
             AuthMessage authMessage = (AuthMessage) message;
 
             if (clientsBD.checkLoginPassword(authMessage.getLogin(), authMessage.getPassword())) {
-                // TODO прописать что делать после успешной проверки пользователя
+                final AuthOkMessage authOk = new AuthOkMessage();
+                authOk.setAuthOk(true);
                 System.out.println("Пользователь найден");
             } else {
                 // TODO прописать автозапрос в регистрации, если логин-пользователь в БД не найден

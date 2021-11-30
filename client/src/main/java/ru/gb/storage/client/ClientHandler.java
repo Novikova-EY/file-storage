@@ -4,9 +4,11 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ru.gb.storage.client.controller.ClientController;
 import ru.gb.storage.commons.message.Message;
 import ru.gb.storage.commons.message.file.EndFileTransferMessage;
 import ru.gb.storage.commons.message.file.FileMessage;
+import ru.gb.storage.commons.message.request.auth.AuthOkMessage;
 
 
 import java.io.RandomAccessFile;
@@ -37,6 +39,14 @@ public class ClientHandler extends SimpleChannelInboundHandler<Message> {
         if (message instanceof EndFileTransferMessage) {
             logger.info("CLIENT: File transfer: success");
             ctx.close();
+        }
+
+        if (message instanceof AuthOkMessage) {
+            AuthOkMessage authOk = (AuthOkMessage) message;
+            if (authOk.isAuthOk()) {
+
+
+            }
         }
 
 

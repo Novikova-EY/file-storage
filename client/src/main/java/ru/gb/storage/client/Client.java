@@ -10,9 +10,11 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import ru.gb.storage.commons.handler.JsonDecoder;
 import ru.gb.storage.commons.handler.JsonEncoder;
@@ -27,14 +29,14 @@ public class Client extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("client.fxml"));
 
-        stage.setTitle("My Application");
+        stage.setTitle("NFileStorage");
         stage.setScene(new Scene(root));
         stage.show();
     }
 
     public static void main(String[] args) throws InterruptedException {
         Application.launch(args);
-//        new Client().run();
+        new Client().run();
     }
 
 
@@ -60,7 +62,7 @@ public class Client extends Application {
 
             ChannelFuture channelFuture = bootstrap.connect("localhost", 9000).sync();
 
-//            logger.info("CLIENT: start");
+            logger.info("CLIENT: start");
 
             while (true) {
 //                Scanner in = new Scanner(System.in);

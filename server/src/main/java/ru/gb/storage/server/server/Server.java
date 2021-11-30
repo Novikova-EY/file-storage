@@ -16,7 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ru.gb.storage.commons.handler.JsonDecoder;
 import ru.gb.storage.commons.handler.JsonEncoder;
-import ru.gb.storage.server.auth.AuthHandler;
+import ru.gb.storage.server.auth.ServerAuthHandler;
 import ru.gb.storage.server.auth.JDBCconnection;
 
 import java.util.concurrent.ExecutorService;
@@ -52,7 +52,7 @@ public class Server {
                                     new LengthFieldPrepender(3),
                                     new JsonEncoder(),
                                     new JsonDecoder(),
-                                    new AuthHandler(),
+                                    new ServerAuthHandler(),
                                     new ServerHandler(threadPool)
                             );
                         }
