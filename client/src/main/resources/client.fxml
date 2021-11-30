@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.text.TextFlow?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gb.storage.client.ClientController">
+    <children>
+        <VBox prefHeight="400.0" prefWidth="600.0">
+            <children>
+                <HBox maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="200.0">
+                    <children>
+                        <TextField fx:id="currentAuthorizedClient" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="502.0" promptText="currentAuthorizedClient" />
+                        <TextField alignment="TOP_CENTER" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="100.0" promptText="logo" text="NFileStorage">
+                            <font>
+                                <Font name="Bernard MT Condensed" size="14.0" />
+                            </font>
+                            <effect>
+                                <Bloom />
+                            </effect>
+                        </TextField>
+                    </children>
+                </HBox>
+                <HBox maxWidth="1.7976931348623157E308" prefHeight="10.0" prefWidth="602.0">
+                    <children>
+                        <Button fx:id="buttonAuthorization" mnemonicParsing="false" onAction="#setButtonAuthorization" prefHeight="25.0" prefWidth="123.0" text="Авторизация" />
+                        <TextField editable="false" prefHeight="25.0" prefWidth="81.0" text="Логин" />
+                        <Pane prefHeight="25.0" prefWidth="150.0" />
+                        <TextField editable="false" prefHeight="25.0" prefWidth="79.0" text="Пароль" />
+                        <PasswordField fx:id="password" prefWidth="150.0" promptText="password" />
+                        <Button fx:id="buttonAythication" mnemonicParsing="false" onAction="#setButtonAythication" prefHeight="25.0" prefWidth="54.0" text="Ок" />
+                    </children>
+                </HBox>
+                <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="337.0" prefWidth="600.0">
+                    <content>
+                        <TextFlow prefHeight="200.0" prefWidth="200.0" />
+                    </content></ScrollPane>
+                <ProgressBar maxWidth="1.7976931348623157E308" prefWidth="200.0" progress="0.0" />
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
