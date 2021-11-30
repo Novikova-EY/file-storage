@@ -1,8 +1,13 @@
 HELP.md
 target/
 !**/src/main/**/target/
+!**/src/main/**/logs/
 !**/src/test/**/target/
+!**/src/test/**/logs/
 .mvn
+
+*.db
+*.log
 
 ### STS ###
 .apt_generated
