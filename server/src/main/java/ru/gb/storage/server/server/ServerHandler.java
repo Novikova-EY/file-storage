@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.message.Message;
 import ru.gb.storage.commons.message.file.EndFileTransferMessage;
 import ru.gb.storage.commons.message.file.FileMessage;
-import ru.gb.storage.commons.message.request.auth.RegistrationMessage;
+import ru.gb.storage.commons.message.request.auth.AuthMessage;
 
 
 public class ServerHandler extends SimpleChannelInboundHandler<Message> {
@@ -52,7 +52,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<Message> {
 
                         FileMessage fileMessage = new FileMessage();
 
-                        fileMessage.setName(FILE_NAME);
+                        fileMessage.setName("2.docx");
                         fileMessage.setContent(content);
                         fileMessage.setPosition(position);
                         fileMessage.setFileTransfer(fileTransferred);
@@ -67,6 +67,12 @@ public class ServerHandler extends SimpleChannelInboundHandler<Message> {
                     logger.throwing(Level.ERROR, e);
                 }
             });
+        }
+
+        if (message instanceof AuthMessage) {
+            AuthMessage authMessage = (AuthMessage) message;
+            System.out.println("server: authMessage.getLogin() = " + authMessage.getLogin());
+            System.out.println("server: authMessage.getPassword() = " + authMessage.getPassword());
         }
 
 

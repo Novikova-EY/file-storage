@@ -10,7 +10,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="87.0" prefWidth="355.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gb.storage.client.controller.RegistrationController">
+<AnchorPane prefHeight="87.0" prefWidth="355.0" xmlns="http://javafx.com/javafx/11.0.2"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gb.storage.client.controller.RegistrationController">
    <children>
       <TextField alignment="BOTTOM_RIGHT" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="355.0" promptText="logo" text="NFileStorage">
          <font>

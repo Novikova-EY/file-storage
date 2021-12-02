@@ -8,6 +8,7 @@ import ru.gb.storage.client.controller.ClientController;
 import ru.gb.storage.commons.message.Message;
 import ru.gb.storage.commons.message.file.EndFileTransferMessage;
 import ru.gb.storage.commons.message.file.FileMessage;
+import ru.gb.storage.commons.message.request.auth.AuthMessage;
 import ru.gb.storage.commons.message.request.auth.AuthOkMessage;
 import ru.gb.storage.commons.message.request.auth.RegistrationMessage;
 
@@ -40,6 +41,12 @@ public class ClientHandler extends SimpleChannelInboundHandler<Message> {
         if (message instanceof EndFileTransferMessage) {
             logger.info("CLIENT: File transfer: success");
             ctx.close();
+        }
+
+
+        if (message instanceof AuthMessage) {
+            AuthMessage authMessage = (AuthMessage) message;
+            ctx.writeAndFlush(authMessage);
         }
 
 

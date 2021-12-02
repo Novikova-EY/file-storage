@@ -33,15 +33,15 @@
                 </HBox>
                 <HBox maxWidth="1.7976931348623157E308" prefHeight="10.0" prefWidth="602.0">
                     <children>
-                        <Button fx:id="buttonRegistration" mnemonicParsing="false" onAction="#setButtonRegistration" prefHeight="25.0" prefWidth="123.0" text="Регистрация">
+                        <Button fx:id="buttonRegistration" mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Регистрация">
                      <HBox.margin>
                         <Insets left="20.0" right="50.0" />
                      </HBox.margin></Button>
                         <TextField maxWidth="-Infinity" prefHeight="25.0" prefWidth="80.0" text="Логин" />
-                  <TextField fx:id="login" maxWidth="-Infinity" onAction="#loginInput" promptText="login" />
+                  <TextField fx:id="loginField" maxWidth="-Infinity" promptText="login" />
                         <TextField maxWidth="-Infinity" prefHeight="25.0" prefWidth="80.0" text="Пароль" />
-                        <PasswordField fx:id="password" onAction="#passwordInput" prefWidth="150.0" promptText="password" />
-                        <Button fx:id="buttonAythication" mnemonicParsing="false" onAction="#setButtonAuthication" prefHeight="25.0" prefWidth="54.0" text="Ок">
+                        <PasswordField fx:id="passwordField" prefWidth="150.0" promptText="password" />
+                        <Button fx:id="buttonAuthication" mnemonicParsing="false" onAction="#getButtonAuthorization" prefHeight="25.0" prefWidth="54.0" text="Ок">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin></Button>

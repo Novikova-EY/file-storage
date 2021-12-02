@@ -1,10 +1,8 @@
 package ru.gb.storage.commons.message.request.auth;
 
-
 import ru.gb.storage.commons.message.Message;
 
 public class AuthMessage extends Message {
-
     private String login;
     private String password;
 
