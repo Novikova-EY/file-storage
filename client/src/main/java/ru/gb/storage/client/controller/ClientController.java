@@ -3,21 +3,16 @@ package ru.gb.storage.client.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import ru.gb.storage.commons.message.request.auth.AuthMessage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ClientController implements Initializable {
+public class ClientController extends FxController implements Initializable {
 
     @FXML
-    private Button buttonAuthication;
+    private Button buttonRegistration;
 
     @FXML
     private TextField login;
@@ -32,9 +27,17 @@ public class ClientController implements Initializable {
     private Button buttonAuthorization;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-    }
+    public void initialize(URL location, ResourceBundle resources) {
 
+    }
+    /**
+     * FXML loader invoke method "initialize" by reflection if it exists after read full context
+     */
+
+
+    public Button setButtonRegistration(ActionEvent event) {
+        return buttonRegistration;
+    }
 
     public String loginInput(ActionEvent actionEvent) {
         return login.getCharacters().toString();
@@ -45,26 +48,15 @@ public class ClientController implements Initializable {
     }
 
     public void setButtonAuthication(ActionEvent actionEvent) {
-        AuthMessage authMessage = new AuthMessage();
-        authMessage.setLogin(loginInput(actionEvent));
-        authMessage.setPassword(passwordInput(actionEvent));
-    }
 
-    public void setButtonAuthorization(ActionEvent event) {
-        Label secondLabel = new Label("I'm a Label on new Window");
-        StackPane secondaryLayout = new StackPane();
-        secondaryLayout.getChildren().add(secondLabel);
-
-        Scene secondScene = new Scene(secondaryLayout, 230, 100);
-
-        Stage newWindow = new Stage();
-        newWindow.setTitle("Second Stage");
-        newWindow.setScene(secondScene);
-
-        newWindow.show();
     }
 
     public void currentAuthorizedClient(ActionEvent actionEvent) {
         currentAuthorizedClient.setText("Client is authorized");
     }
+
+    public Button getButtonRegistration() {
+        return buttonRegistration;
+    }
+
 }

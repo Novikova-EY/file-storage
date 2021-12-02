@@ -10,35 +10,46 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import ru.gb.storage.commons.handler.JsonDecoder;
-import ru.gb.storage.commons.handler.JsonEncoder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ru.gb.storage.commons.message.file.FileMessage;
-
+import ru.gb.storage.client.controller.ClientController;
+import ru.gb.storage.client.controller.FxController;
+import ru.gb.storage.client.controller.RegistrationController;
+import ru.gb.storage.commons.handler.JsonDecoder;
+import ru.gb.storage.commons.handler.JsonEncoder;
+import ru.gb.storage.commons.message.request.auth.RegistrationMessage;
 
 public class Client extends Application {
     private static final Logger logger = LogManager.getLogger(Client.class);
 
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("client.fxml"));
-
-        stage.setTitle("NFileStorage");
-        stage.setScene(new Scene(root));
-        stage.show();
+    public static void main(String[] args) {
+        Client.launch(args);
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        Application.launch(args);
-        new Client().run();
-    }
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        //create new stage for message window
+        Stage registrationStage = new Stage();
 
+        //set parent stage for massage window. It's optional step
+//        registrationStage.initOwner(primaryStage);
+
+        //set parent stage behavior when child stage is showing
+        registrationStage.initModality(Modality.APPLICATION_MODAL);
+
+        //get demo controller
+        ClientController clientController = FxController.init(primaryStage, "fxml/client.fxml");
+
+        //get message controller
+        RegistrationController registrationController = FxController.init(registrationStage, "fxml/registration.fxml");
+
+        //set event to button
+        clientController.getButtonRegistration().setOnMouseClicked(event -> registrationController.getStage().show());
+
+        clientController.getStage().show();
+    }
 
     public void run() throws InterruptedException {
         final NioEventLoopGroup group = new NioEventLoopGroup();
@@ -79,8 +90,12 @@ public class Client extends Application {
 
                 // отправка файла на сервер
 
-                channelFuture.channel().writeAndFlush(new FileMessage());
+//                channelFuture.channel().writeAndFlush(new FileMessage());
+                final RegistrationMessage registrationMessage = new RegistrationMessage();
+                System.out.println(registrationMessage.getLogin() + registrationMessage.getPassword());
+                channelFuture.channel().writeAndFlush(registrationMessage);
                 channelFuture.channel().closeFuture().sync();
+
             }
         } finally {
             group.shutdownGracefully();

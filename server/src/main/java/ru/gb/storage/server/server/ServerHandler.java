@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.message.Message;
 import ru.gb.storage.commons.message.file.EndFileTransferMessage;
 import ru.gb.storage.commons.message.file.FileMessage;
+import ru.gb.storage.commons.message.request.auth.RegistrationMessage;
 
 
 public class ServerHandler extends SimpleChannelInboundHandler<Message> {
@@ -67,6 +68,8 @@ public class ServerHandler extends SimpleChannelInboundHandler<Message> {
                 }
             });
         }
+
+
 
         // TODO загрузка файла с клиента на сервер
 

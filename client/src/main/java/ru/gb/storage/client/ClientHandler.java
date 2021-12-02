@@ -9,6 +9,7 @@ import ru.gb.storage.commons.message.Message;
 import ru.gb.storage.commons.message.file.EndFileTransferMessage;
 import ru.gb.storage.commons.message.file.FileMessage;
 import ru.gb.storage.commons.message.request.auth.AuthOkMessage;
+import ru.gb.storage.commons.message.request.auth.RegistrationMessage;
 
 
 import java.io.RandomAccessFile;
@@ -40,6 +41,7 @@ public class ClientHandler extends SimpleChannelInboundHandler<Message> {
             logger.info("CLIENT: File transfer: success");
             ctx.close();
         }
+
 
         if (message instanceof AuthOkMessage) {
             AuthOkMessage authOk = (AuthOkMessage) message;

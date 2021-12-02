@@ -19,7 +19,7 @@ public class ServerAuthHandler extends SimpleChannelInboundHandler<Message> {
 
         ClientsBD clientsBD = new ClientsBD();
 
-        // проверка регистрации нового пользователя
+        // регистрация нового пользователя
         if (message instanceof RegistrationMessage) {
             RegistrationMessage registrationMessage = (RegistrationMessage) message;
 
