@@ -44,9 +44,14 @@ public class ClientHandler extends SimpleChannelInboundHandler<Message> {
         }
 
 
+        // отправка на сервер сообщения с авторизацией
         if (message instanceof AuthMessage) {
-            AuthMessage authMessage = (AuthMessage) message;
-            ctx.writeAndFlush(authMessage);
+            new Thread(() -> {
+                AuthMessage authMessage = (AuthMessage) message;
+                System.out.println("clientHandler: authMessage.getLogin() = " + authMessage.getLogin());
+                System.out.println("clientHandler: authMessage.getPassword() = " + authMessage.getPassword());
+                ctx.writeAndFlush(authMessage);
+            }).start();
         }
 
 

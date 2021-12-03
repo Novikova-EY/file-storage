@@ -36,13 +36,16 @@ public class ClientController extends FxController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        try {
-            connectionToServer.run();
-            authorization();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // запускаем процесс соединения с сервером в новом (не FX) потоке
+        new Thread(() -> {
+            try {
+                connectionToServer.run();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
 
+        authorization();
     }
 
     private void authorization() {
