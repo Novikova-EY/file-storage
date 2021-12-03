@@ -52,7 +52,7 @@ public class Server {
                                     new LengthFieldPrepender(3),
                                     new JsonEncoder(),
                                     new JsonDecoder(),
-                                    new ServerAuthHandler(),
+                                    new ServerAuthHandler(threadPool),
                                     new ServerHandler(threadPool)
                             );
                         }

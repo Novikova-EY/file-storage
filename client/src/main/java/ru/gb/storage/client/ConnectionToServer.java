@@ -2,7 +2,6 @@ package ru.gb.storage.client;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -14,10 +13,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ru.gb.storage.commons.handler.JsonDecoder;
 import ru.gb.storage.commons.handler.JsonEncoder;
-import ru.gb.storage.commons.message.Message;
-
-import java.time.LocalDateTime;
-import java.util.Date;
 
 public class ConnectionToServer {
     private static final Logger logger = LogManager.getLogger(ConnectionToServer.class);
@@ -42,7 +37,7 @@ public class ConnectionToServer {
                     })
                     .option(ChannelOption.SO_KEEPALIVE, true);
 
-            ChannelFuture channelFuture = bootstrap.connect("localhost", 9000);
+            ChannelFuture channelFuture = bootstrap.connect("localhost", 9000).sync();
             logger.info("CLIENT: start");
 
             channelFuture.channel().closeFuture().sync();

@@ -30,9 +30,10 @@ public class ServerHandler extends SimpleChannelInboundHandler<Message> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Message message) {
 
-        // скачивание файла с сервера на клиент
         if (message instanceof FileMessage) {
             executor.execute(() -> {
+
+                // скачивание файла с сервера на клиент
                 try (final RandomAccessFile randomAccessFile = new RandomAccessFile(FILE_NAME, "r")) {
                     long fileLength = randomAccessFile.length();
                     do {
@@ -69,6 +70,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<Message> {
             });
         }
 
+        // проверка авторизации пользователя при входе
         if (message instanceof AuthMessage) {
             AuthMessage authMessage = (AuthMessage) message;
             System.out.println("server: authMessage.getLogin() = " + authMessage.getLogin());

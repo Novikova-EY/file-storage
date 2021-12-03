@@ -5,11 +5,11 @@ import ru.gb.storage.commons.message.Message;
 public class AuthOkMessage extends Message {
     private boolean isAuthOk = false;
 
-    public boolean isAuthOk() {
-        return isAuthOk;
+    public AuthOkMessage(boolean isAuthOk) {
+        this.isAuthOk = isAuthOk;
     }
 
-    public void setAuthOk(boolean authOk) {
-        isAuthOk = authOk;
+    public boolean isAuthOk() {
+        return isAuthOk;
     }
 }
