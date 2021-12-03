@@ -9,6 +9,8 @@ import ru.gb.storage.commons.message.request.auth.AuthMessage;
 import ru.gb.storage.commons.message.request.auth.AuthOkMessage;
 import ru.gb.storage.commons.message.request.auth.RegistrationMessage;
 
+import java.util.concurrent.Executor;
+
 
 public class ServerAuthHandler extends SimpleChannelInboundHandler<Message> {
 
@@ -19,7 +21,7 @@ public class ServerAuthHandler extends SimpleChannelInboundHandler<Message> {
 
         ClientsBD clientsBD = new ClientsBD();
 
-        // регистрация нового пользователя
+
         if (message instanceof RegistrationMessage) {
             RegistrationMessage registrationMessage = (RegistrationMessage) message;
 

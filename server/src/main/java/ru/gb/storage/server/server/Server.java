@@ -60,13 +60,12 @@ public class Server {
                     .option(ChannelOption.SO_BACKLOG, 128)
                     .childOption(ChannelOption.SO_KEEPALIVE, true);
 
-            new JDBCconnection();
-
-            ChannelFuture future = server.bind(9000).sync();
-
+            ChannelFuture channelFuture = server.bind(9000).sync();
             logger.info("SERVER: start");
 
-            future.channel().closeFuture().sync();
+            new JDBCconnection();
+
+            channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             logger.throwing(Level.ERROR, e);
         } finally {

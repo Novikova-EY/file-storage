@@ -8,10 +8,8 @@ import ru.gb.storage.client.controller.FxController;
 import ru.gb.storage.client.controller.RegistrationController;
 
 public class Client extends Application {
-    private static final Network network = new Network();
 
     public static void main(String[] args) throws InterruptedException {
-        network.run();
         Client.launch(args);
     }
 
