@@ -49,7 +49,7 @@ public class ClientsBD {
     public static boolean checkLogin(String login) {
         try (final PreparedStatement preparedStatement =
                      JDBCconnection.getConnection().prepareStatement(
-                             "SELECT nickname " +
+                             "SELECT login " +
                                      "FROM clients " +
                                      "WHERE login = ?;")) {
             preparedStatement.setString(1, login);

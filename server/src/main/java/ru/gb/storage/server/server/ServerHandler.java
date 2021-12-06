@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.message.Message;
 import ru.gb.storage.commons.message.file.EndFileTransferMessage;
 import ru.gb.storage.commons.message.file.FileMessage;
+import ru.gb.storage.commons.message.request.auth.AuthMessage;
 
 
 public class ServerHandler extends SimpleChannelInboundHandler<Message> {
@@ -29,9 +30,10 @@ public class ServerHandler extends SimpleChannelInboundHandler<Message> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Message message) {
 
-        // скачивание файла с сервера на клиент
         if (message instanceof FileMessage) {
             executor.execute(() -> {
+
+                // скачивание файла с сервера на клиент
                 try (final RandomAccessFile randomAccessFile = new RandomAccessFile(FILE_NAME, "r")) {
                     long fileLength = randomAccessFile.length();
                     do {
@@ -51,7 +53,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<Message> {
 
                         FileMessage fileMessage = new FileMessage();
 
-                        fileMessage.setName(FILE_NAME);
+                        fileMessage.setName("2.docx");
                         fileMessage.setContent(content);
                         fileMessage.setPosition(position);
                         fileMessage.setFileTransfer(fileTransferred);
@@ -67,6 +69,15 @@ public class ServerHandler extends SimpleChannelInboundHandler<Message> {
                 }
             });
         }
+
+        // проверка авторизации пользователя при входе
+        if (message instanceof AuthMessage) {
+            AuthMessage authMessage = (AuthMessage) message;
+            System.out.println("server: authMessage.getLogin() = " + authMessage.getLogin());
+            System.out.println("server: authMessage.getPassword() = " + authMessage.getPassword());
+        }
+
+
 
         // TODO загрузка файла с клиента на сервер
 

@@ -16,7 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ru.gb.storage.commons.handler.JsonDecoder;
 import ru.gb.storage.commons.handler.JsonEncoder;
-import ru.gb.storage.server.auth.AuthHandler;
+import ru.gb.storage.server.auth.ServerAuthHandler;
 import ru.gb.storage.server.auth.JDBCconnection;
 
 import java.util.concurrent.ExecutorService;
@@ -52,7 +52,7 @@ public class Server {
                                     new LengthFieldPrepender(3),
                                     new JsonEncoder(),
                                     new JsonDecoder(),
-                                    new AuthHandler(),
+                                    new ServerAuthHandler(threadPool),
                                     new ServerHandler(threadPool)
                             );
                         }
@@ -60,13 +60,12 @@ public class Server {
                     .option(ChannelOption.SO_BACKLOG, 128)
                     .childOption(ChannelOption.SO_KEEPALIVE, true);
 
-            new JDBCconnection();
-
-            ChannelFuture future = server.bind(9000).sync();
-
+            ChannelFuture channelFuture = server.bind(9000).sync();
             logger.info("SERVER: start");
 
-            future.channel().closeFuture().sync();
+            new JDBCconnection();
+
+            channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             logger.throwing(Level.ERROR, e);
         } finally {

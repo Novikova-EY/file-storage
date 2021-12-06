@@ -4,9 +4,13 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ru.gb.storage.client.controller.ClientController;
 import ru.gb.storage.commons.message.Message;
 import ru.gb.storage.commons.message.file.EndFileTransferMessage;
 import ru.gb.storage.commons.message.file.FileMessage;
+import ru.gb.storage.commons.message.request.auth.AuthMessage;
+import ru.gb.storage.commons.message.request.auth.AuthOkMessage;
+import ru.gb.storage.commons.message.request.auth.RegistrationMessage;
 
 
 import java.io.RandomAccessFile;
@@ -37,6 +41,26 @@ public class ClientHandler extends SimpleChannelInboundHandler<Message> {
         if (message instanceof EndFileTransferMessage) {
             logger.info("CLIENT: File transfer: success");
             ctx.close();
+        }
+
+
+        // отправка на сервер сообщения с авторизацией
+        if (message instanceof AuthMessage) {
+            new Thread(() -> {
+                AuthMessage authMessage = (AuthMessage) message;
+                System.out.println("clientHandler: authMessage.getLogin() = " + authMessage.getLogin());
+                System.out.println("clientHandler: authMessage.getPassword() = " + authMessage.getPassword());
+                ctx.writeAndFlush(authMessage);
+            }).start();
+        }
+
+
+        if (message instanceof AuthOkMessage) {
+            AuthOkMessage authOk = (AuthOkMessage) message;
+            if (authOk.isAuthOk()) {
+
+
+            }
         }
 
 
