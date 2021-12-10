@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="493.0" prefWidth="1093.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.gb.storage.client.ClientController">
+   <HBox fx:id="boxServer" alignment="TOP_RIGHT" prefHeight="36.0" prefWidth="1093.0">
+      <children>
+         <Label alignment="CENTER" prefHeight="36.0" prefWidth="122.0" text="Нет учетной записи" textAlignment="CENTER" />
+         <TextField fx:id="loginReg" layoutX="719.0" layoutY="15.0" promptText="Логин">
+            <HBox.margin>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </HBox.margin>
+         </TextField>
+         <PasswordField fx:id="passwordReg" promptText="Пароль">
+            <HBox.margin>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </HBox.margin>
+         </PasswordField>
+         <Button fx:id="btnReg" layoutX="1038.0" layoutY="15.0" mnemonicParsing="false" onAction="#registration" prefHeight="25.0" prefWidth="116.0" text="Регистрация">
+            <HBox.margin>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </HBox.margin>
+         </Button>
+         <Label alignment="CENTER" layoutX="175.0" layoutY="10.0" prefHeight="36.0" prefWidth="122.0" text="Есть учетная запись" textAlignment="CENTER">
+            <HBox.margin>
+               <Insets left="50.0" />
+            </HBox.margin>
+         </Label>
+         <TextField fx:id="login" promptText="Логин">
+            <HBox.margin>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </HBox.margin>
+         </TextField>
+         <PasswordField fx:id="password" layoutX="289.0" layoutY="15.0" promptText="Пароль">
+            <HBox.margin>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </HBox.margin>
+         </PasswordField>
+         <Button fx:id="btnConnect" mnemonicParsing="false" onAction="#connect" prefHeight="25.0" prefWidth="90.0" text="Войти">
+            <HBox.margin>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </HBox.margin>
+         </Button>
+      </children>
+   </HBox>
+   <HBox fx:id="mainWindow" alignment="TOP_CENTER" maxHeight="Infinity" prefHeight="460.0" prefWidth="1123.0">
+
+       <VBox fx:id="clSide" maxHeight="Infinity" prefWidth="567.0">
+         <Label alignment="CENTER" prefHeight="39.0" prefWidth="557.0" text="Локальное хранилище" />
+
+           <HBox prefHeight="0.0" prefWidth="340.0">
+               <children>
+                   <ComboBox fx:id="clDiskBox" onAction="#selectDisk" prefHeight="25.0" prefWidth="66.0">
+                       <HBox.margin>
+                           <Insets right="5.0" />
+                       </HBox.margin></ComboBox>
+                   <TextField fx:id="clViewPath" editable="false" prefHeight="25.0" prefWidth="438.0" VBox.vgrow="ALWAYS">
+                  <HBox.margin>
+                     <Insets bottom="10.0" left="5.0" right="5.0" />
+                  </HBox.margin></TextField>
+                   <Button onAction="#btnClPathUp" prefHeight="25.0" prefWidth="38.0" text="...">
+                       <HBox.margin>
+                           <Insets left="5.0" />
+                       </HBox.margin></Button>
+               </children>
+           </HBox>
+           <TableView fx:id="clViewList" prefHeight="523.0" prefWidth="559.0" VBox.vgrow="ALWAYS">
+               <columns>
+                   <TableColumn fx:id="clColType" prefWidth="20" />
+                   <TableColumn fx:id="clColName" prefWidth="231.99996948242188" text="Name" />
+                   <TableColumn fx:id="clColSize" prefWidth="98.66668701171875" text="Size" />
+                   <TableColumn fx:id="clColDate" prefWidth="200.0" text="Date" />
+               </columns>
+           </TableView>
+      
+         <HBox fx:id="buttonBox" prefHeight="100.0" prefWidth="1093.0">
+            <children>
+               <Button focusTraversable="false" maxWidth="Infinity" mnemonicParsing="false" onAction="#upload" text="Загрузить на сервер" HBox.hgrow="ALWAYS">
+                  <HBox.margin>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  </HBox.margin>
+               </Button>
+               <Button focusTraversable="false" maxWidth="Infinity" mnemonicParsing="false" onAction="#deletePC" text="Удалить локально" HBox.hgrow="ALWAYS">
+                  <HBox.margin>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  </HBox.margin>
+               </Button>
+                <Button focusTraversable="false" maxWidth="Infinity" mnemonicParsing="false" onAction="#makeDir" text="Создать локальную папку" HBox.hgrow="ALWAYS">
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </HBox.margin>
+               </Button>
+            </children>
+         </HBox>
+       </VBox>
+
+       <VBox fx:id="cerSide" maxHeight="Infinity" prefWidth="543.0">
+         <Label alignment="CENTER" prefHeight="39.0" prefWidth="557.0" text="Серверное хранилище">
+            <padding>
+               <Insets left="20.0" />
+            </padding>
+         </Label>
+
+           <HBox prefHeight="0.0" prefWidth="340.0">
+               <children>
+                   <TextField fx:id="serViewPath" editable="false" prefHeight="25.0" prefWidth="313.0" VBox.vgrow="ALWAYS">
+                  <HBox.margin>
+                     <Insets bottom="10.0" left="5.0" right="5.0" />
+                  </HBox.margin></TextField>
+               </children>
+           </HBox>
+           <TableView fx:id="serViewList" prefHeight="534.0" prefWidth="535.0" VBox.vgrow="ALWAYS">
+               <columns>
+                   <TableColumn fx:id="serColType" prefWidth="20" />
+                   <TableColumn fx:id="serColName" prefWidth="240.0" text="Name" />
+                   <TableColumn fx:id="serColSize" prefWidth="90.6666259765625" text="Size" />
+                   <TableColumn fx:id="serColDate" prefWidth="178.00006103515625" text="Date" />
+               </columns>
+            <opaqueInsets>
+               <Insets left="5.0" />
+            </opaqueInsets>
+           </TableView>
+         <Pane prefHeight="200.0" prefWidth="200.0" />
+         <HBox fx:id="buttonBox1" prefHeight="100.0" prefWidth="1093.0">
+            <children>
+               <Button focusTraversable="false" maxWidth="Infinity" mnemonicParsing="false" onAction="#download" text="Загрузить в локальное хранилище" HBox.hgrow="ALWAYS">
+                  <HBox.margin>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  </HBox.margin>
+               </Button>
+               <Button focusTraversable="false" maxWidth="Infinity" mnemonicParsing="false" onAction="#deletePC" text="Удалить на сервере" HBox.hgrow="ALWAYS">
+                  <HBox.margin>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  </HBox.margin>
+               </Button>
+            </children>
+         </HBox>
+         <opaqueInsets>
+            <Insets left="5.0" />
+         </opaqueInsets>
+       </VBox>
+   </HBox>
+</VBox>
