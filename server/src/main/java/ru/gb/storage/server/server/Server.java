@@ -9,18 +9,12 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
-import io.netty.handler.codec.LengthFieldPrepender;
+import io.netty.handler.codec.serialization.ClassResolvers;
+import io.netty.handler.codec.serialization.ObjectDecoder;
+import io.netty.handler.codec.serialization.ObjectEncoder;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ru.gb.storage.commons.handler.JsonDecoder;
-import ru.gb.storage.commons.handler.JsonEncoder;
-import ru.gb.storage.server.auth.ServerAuthHandler;
-import ru.gb.storage.server.auth.JDBCconnection;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Server {
 
@@ -38,7 +32,6 @@ public class Server {
     public void run() {
         final NioEventLoopGroup bossGroup = new NioEventLoopGroup(1);
         final NioEventLoopGroup workerGroup = new NioEventLoopGroup();
-        final ExecutorService threadPool = Executors.newCachedThreadPool();
 
         try {
             ServerBootstrap server = new ServerBootstrap();
@@ -48,12 +41,9 @@ public class Server {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
                             socketChannel.pipeline().addLast(
-                                    new LengthFieldBasedFrameDecoder(1024 * 1024, 0, 3, 0, 3),
-                                    new LengthFieldPrepender(3),
-                                    new JsonEncoder(),
-                                    new JsonDecoder(),
-                                    new ServerAuthHandler(threadPool),
-                                    new ServerHandler(threadPool)
+                                    new ObjectDecoder(ClassResolvers.cacheDisabled(null)),
+                                    new ObjectEncoder(),
+                                    new ServerHandler()
                             );
                         }
                     })
@@ -63,16 +53,12 @@ public class Server {
             ChannelFuture channelFuture = server.bind(9000).sync();
             logger.info("SERVER: start");
 
-            new JDBCconnection();
-
             channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             logger.throwing(Level.ERROR, e);
         } finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
-            threadPool.shutdownNow();
-            JDBCconnection.disconnect();
             logger.info("SERVER: shut down");
         }
     }

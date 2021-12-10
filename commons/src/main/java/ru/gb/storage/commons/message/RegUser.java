@@ -1,11 +1,9 @@
-package ru.gb.storage.commons.message.request.auth;
+package ru.gb.storage.commons.message;
 
-
-import ru.gb.storage.commons.message.Message;
-
-public class RegistrationMessage extends Message {
+public class RegUser extends Message {
     private String login;
     private String password;
+
 
     public String getLogin() {
         return login;
@@ -20,6 +18,12 @@ public class RegistrationMessage extends Message {
     }
 
     public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    public RegUser(String login, String password) {
+        this.login = login;
         this.password = password;
     }
 }
